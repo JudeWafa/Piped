@@ -7,8 +7,12 @@ from django.http import JsonResponse
 
 # Create your views here.
 
-def homepage(request):
-    return render(request, "Homepage.html")
+def mainpage(request):
+    return render(request, "Mainpage.html")
+
+# @login_required
+# def homepage(request):
+#     return render(request, "Homepage.html")
 
 @login_required
 def viewAllPipelines(request):

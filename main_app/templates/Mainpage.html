@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block content %}
+
+
+    <div class="page-container">
+    <div class="content">
+        <h1 class="main_welcome">Welcome to Piped!!</h1>
+        <p class="main">Our pipelines don't need plumbing >_<</p>
+        <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="menu login_btn">Login</button>
+        </form>
+    </div>
+
+    <div class="pipelines">
+
+        <img class="pipeline" src="{% static 'main_app/top_pipe.png'%}" style="top: -40%; left: 20%;">
+        <img class="pipeline" src="{% static 'main_app/top_pipe.png'%}" style="top: -60%; left: 90%;">
+        <img class="pipeline" src="{% static 'main_app/top_pipe.png'%}" style="top: -30%; left: 70%;">
+        <img class="pipeline" src="{% static 'main_app/bottom_pipe.png'%}" style="top: 40%; left: 30%;">
+        <img class="pipeline" src="{% static 'main_app/bottom_pipe.png'%}" style="top: 60%; left: 50%;">
+        <img class="pipeline" src="{% static 'main_app/bottom_pipe.png'%}" style="top: 40%; left: 80%;">
+        <img class="pipeline" src="{% static 'main_app/bottom_pipe.png'%}" style="top: 30%; left: 10%;">
+        
+        
+    </div>
+    </div>
+
+
+    {% endblock content %}
