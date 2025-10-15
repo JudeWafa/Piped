@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block header %}
+      <title>Create Pipeline</title>
+      <link rel="stylesheet" href="{% static 'main_app/create_pipeline.css' %}">
+  {% endblock header %}
+
+  {% block content %}
+  <div class="body">
+    <div class="container">
+      <h2>Create a New Pipeline</h2>
+
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="create-btn">Create Pipeline</button>
+      </form>
+    </div>
+  </div>
+  {% endblock %}

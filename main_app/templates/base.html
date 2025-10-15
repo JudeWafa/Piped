@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main_app/styles.css' %}">
+    {% block head %}
+    {% endblock head %}
+</head>
+<body>
+    <div>
+        {% if user.is_authenticated %}
+            <h2 class="welcome">Welcome, {{ user.username }}</h2>
+            <span><a class="menu" href="{% url 'create_pipeline'%}">Create Pipeline</a></span>
+            <span><a class="menu" href="{% url 'view_all'%}">All Pipelines</a></span>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="menu logout_btn">Logout</button>
+            </form>
+        {% endif %}
+    </div>
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

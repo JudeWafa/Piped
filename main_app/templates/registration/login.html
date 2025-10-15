@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'main_app/create_pipeline.css' %}">
+{% endblock header %}
+{% block content %}
+<h1 class="login_welcome">Welcome to Piped!</h1>
+<div class="body">
+  <div class="container">
+    <h2 >Login</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="login_btn">Login</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+</html>

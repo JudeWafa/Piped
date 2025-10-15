@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <title>{{ pipeline.name }}</title>
+{% endblock header %}
+
+{% block content %}
+<div class="pipeline-container">
+    <div class="sidebar">
+        <h2 class="pip-name">{{ pipeline.name }}</h2>
+        <hr>
+        <h3>Add New Stage</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ stage_form.as_p }}
+            <button type="submit" name="add_stage" class="stage-btn">Add Stage</button>
+        </form>
+    </div>
+
+    <div class="board">
+        {% for stage in stages %}
+        <div class="stage-column">
+            <h4>{{ stage.name }}</h4>
+
+            <ul id="stage-{{ stage.id }}" class="stage-items">
+                {% for item in stage.items.all %}
+                    <li class="item" data-item-id="{{ item.id }}">
+                        <strong>{{ item.title }}</strong>
+                        <p>{{ item.description }}</p>
+                    </li>
+                {% empty %}
+                    <!-- <li class="empty">No items yet</li> -->
+                {% endfor %}
+            </ul>
+
+            <form method="post" class="add-item-form">
+                {% csrf_token %}
+                {{ item_form.as_p }}
+                <input type="hidden" name="stage_id" value="{{ stage.id }}">
+                <button type="submit" name="add_item" class="item-btn">Add Item</button>
+            </form>
+        </div>
+        {% empty %}
+        <p>No stages yet. Add one using the form on the left.</p>
+        {% endfor %}
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const stages = document.querySelectorAll('.stage-items');
+    stages.forEach(stageList => {
+        new Sortable(stageList, {
+            group: 'shared',
+            animation: 150,
+            onEnd: function(evt) {
+                const itemId = evt.item.dataset.itemId;
+                const newStageId = evt.to.id.replace('stage-', '');
+
+                fetch("{% url 'move_item' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        item_id: itemId,
+                        stage_id: newStageId,
+                    }),
+                })
+                .then(res => {
+                    if (!res.ok) console.error('Failed to move item');
+                })
+                .catch(err => console.error('Error:', err));
+            },
+        });
+    });
+});
+</script>
+
+{% endblock %}
+
+

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block header %}
+      <title>Create Pipeline</title>
+      <link rel="stylesheet" href="{% static 'main_app/create_pipeline.css' %}">
+  {% endblock header %}
+
+  {% block content %}
+  <div class="body">
+    <div class="container">
+      <h2>Your Pipelines</h2>
+      <ul>
+      {% for pipeline in pipelines %}
+          <li class="pip-list">
+            <a href="{% url 'pipeline_detail' pipeline.id %}" class="pip-link">
+              {{ pipeline.name }}
+            </a>
+          </li>
+      {% empty %}
+          <li>No pipelines yet.</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endblock %}
