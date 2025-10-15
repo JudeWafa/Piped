@@ -8,6 +8,53 @@ h2 {
     font-size: 30px;
 }
 
+.main_welcome {
+    color: #2E3532;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 10%;
+}
+
+.main {
+    text-align: center;
+    font-size: 20px;
+    color: #465951;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* optional, centers everything horizontally */
+  text-align: center;
+}
+
+
+.page-container {
+  position: relative; /* Needed for absolute positioning inside */
+  min-height: 100vh;
+  overflow: hidden; /* Ensures scattered items don't break layout */
+}
+
+.pipelines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevents them from blocking clicks on other elements */
+}
+
+.pipeline {
+  position: absolute;
+  width: 80px;
+  opacity: 0.8;
+  transition: transform 0.3s ease;
+}
+
+.pipeline:hover {
+  transform: scale(1.1);
+}
+
 .menu {
     text-decoration: none;
     font-size: 20px;
